@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+
+.env
+
+venv/
+.venv/
+
+chroma_db/
+
+node_modules/
+
+.vscode/
+
+uploads/*.pdf
