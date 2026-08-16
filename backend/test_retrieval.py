@@ -10,7 +10,7 @@ results = vector_service.search(
     n_results=3,
     where={
         "$and": [
-            {"subject": "javascript"},
+            {"subject": "web_developement"},
             {"lesson": "lesson_1"}
         ]
     }

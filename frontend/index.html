@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI EdTech</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+
+    <header class="header">
+        <div class="logo">AI Learning Platform</div>
+
+        <button class="home-btn" onclick="showCourses()">
+            Home
+        </button>
+    </header>
+
+
+    <!-- ========================================= -->
+    <!-- MAIN APPLICATION -->
+    <!-- ========================================= -->
+
+    <main id="app">
+
+        <!-- Courses are loaded here -->
+        <section id="courses-screen" class="screen">
+            <h1>Explore Courses</h1>
+
+            <p class="subtitle">
+                Choose a course to start learning.
+            </p>
+
+            <div id="courses-container" class="cards-container"></div>
+        </section>
+
+
+        <!-- ===================================== -->
+        <!-- LESSONS SCREEN -->
+        <!-- ===================================== -->
+
+        <section id="lessons-screen" class="screen hidden">
+
+            <button class="back-btn" onclick="showCourses()">
+                ← Back to Courses
+            </button>
+
+            <h1 id="lessons-title"></h1>
+
+            <div id="lessons-container" class="lessons-container"></div>
+
+        </section>
+
+
+        <!-- ===================================== -->
+        <!-- PDF SCREEN -->
+        <!-- ===================================== -->
+
+        <section id="pdf-screen" class="screen hidden">
+
+            <button class="back-btn" onclick="showLessons()">
+                ← Back to Lessons
+            </button>
+
+            <h1 id="pdf-title"></h1>
+
+            <div class="pdf-container">
+                <iframe id="pdf-viewer"></iframe>
+            </div>
+
+            <button
+                id="completed-btn"
+                class="primary-btn"
+                onclick="completeReading()"
+            >
+                ✓ I completed reading the PDF
+            </button>
+
+        </section>
+
+
+        <!-- ===================================== -->
+        <!-- QUIZ INFORMATION SCREEN -->
+        <!-- ===================================== -->
+
+        <section id="quiz-info-screen" class="screen hidden">
+
+            <div class="quiz-info-card">
+
+                <h1>Quiz Information</h1>
+
+                <div class="info-row">
+                    <strong>Subject:</strong>
+                    <span id="info-subject"></span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Course:</strong>
+                    <span id="info-course"></span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Lesson:</strong>
+                    <span id="info-lesson"></span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Questions:</strong>
+                    <span id="info-questions">5</span>
+                </div>
+
+                <p class="quiz-description">
+                    This quiz will be generated using the
+                    subject-specific AI model.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    onclick="startQuiz()"
+                >
+                    Start Quiz
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================== -->
+        <!-- QUIZ SCREEN -->
+        <!-- ===================================== -->
+
+        <section id="quiz-screen" class="screen hidden">
+
+            <button class="back-btn" onclick="showQuizInfo()">
+                ← Back
+            </button>
+
+            <h1 id="quiz-title">Quiz</h1>
+
+            <div id="quiz-container"></div>
+
+            <button
+                class="submit-btn"
+                onclick="submitQuiz()"
+            >
+                Submit Quiz
+            </button>
+
+            <p id="quiz-error" class="error"></p>
+
+        </section>
+
+
+        <!-- ===================================== -->
+        <!-- RESULT SCREEN -->
+        <!-- ===================================== -->
+
+        <section id="result-screen" class="screen hidden">
+
+            <div class="result-card">
+
+                <h1>🎉 Quiz Completed</h1>
+
+                <div class="score">
+
+                    <span id="result-score"></span>
+
+                </div>
+
+                <div class="percentage">
+                    <span id="result-percentage"></span>%
+                </div>
+
+                <div class="result-info">
+
+                    <div>
+                        <strong>AI Model</strong>
+                        <span id="result-model"></span>
+                    </div>
+
+                    <div>
+                        <strong>Quiz ID</strong>
+                        <span
+                            id="result-quiz-id"
+                            class="quiz-id"
+                        ></span>
+                    </div>
+
+                    <div>
+                        <strong>Progress ID</strong>
+                        <span
+                            id="result-progress-id"
+                            class="quiz-id"
+                        ></span>
+                    </div>
+
+                </div>
+
+                <button
+                    class="primary-btn"
+                    onclick="showCourses()"
+                >
+                    Back to Courses
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

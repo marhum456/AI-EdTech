@@ -3,7 +3,7 @@ from app.services.pdf_service import (
     clean_text,
 )
 
-pdf_path = r"../uploads/Javascript/JavaScript Fundamentals.pdf"
+pdf_path = r"../uploads/web_developement/JavaScript Fundamentals.pdf"
 
 text = extract_text_from_pdf(pdf_path)
 text = clean_text(text)

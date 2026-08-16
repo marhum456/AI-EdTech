@@ -5,8 +5,8 @@ from app.services.chunk_service import create_chunks
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-f_path = BASE_DIR / "uploads" / "Javascript" / "JavaScript Fundamentals.pdf"
-pd
+f_path = BASE_DIR / "uploads" / "web_developement" / "JavaScript Fundamentals.pdf"
+
 text = extract_text_from_pdf(pdf_path)
 
 chunks = create_chunks(text)
