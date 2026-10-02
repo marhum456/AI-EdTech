@@ -5,9 +5,10 @@ class RouterService:
     # -------------------------------------------------
 
     SUBJECT_ROUTES = {
-        "web_developement": "openai/gpt-oss-20b",
+        "computer_science": "openai/gpt-oss-20b",
         "mathematics": "openai/gpt-oss-120b",
         "physics": "openai/gpt-oss-120b",
+        "chemistry": "openai/gpt-oss-120b",
     }
 
     # -------------------------------------------------
@@ -15,10 +16,6 @@ class RouterService:
     # -------------------------------------------------
 
     def route_subject(self, subject: str) -> str:
-        """
-        Determine which Groq model should handle
-        the requested subject.
-        """
 
         subject = subject.lower().strip()
 

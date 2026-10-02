@@ -1,3 +1,4 @@
+
 import chromadb
 
 from app.config import settings
@@ -22,12 +23,12 @@ collection = client.get_collection(
 
 
 # =================================================
-# Check Mathematics Records
+# Check web_developement Records
 # =================================================
 
 results = collection.get(
     where={
-        "subject": "mathematics"
+        "course": "web_developement"
     },
     include=[
         "metadatas"
@@ -35,10 +36,17 @@ results = collection.get(
 )
 
 print(
-    f"Found {len(results['ids'])} mathematics chunks."
+    f"Found {len(results['ids'])} "
+    f"web_developement chunks."
 )
 
+
+# =================================================
+# Display Records Before Deletion
+# =================================================
+
 for i, metadata in enumerate(results["metadatas"]):
+
     print(
         results["ids"][i],
         metadata
@@ -46,7 +54,7 @@ for i, metadata in enumerate(results["metadatas"]):
 
 
 # =================================================
-# Delete Mathematics
+# Delete web_developement Records
 # =================================================
 
 if results["ids"]:
@@ -56,23 +64,24 @@ if results["ids"]:
     )
 
     print(
-        f"\n✅ Deleted {len(results['ids'])} mathematics chunks."
+        f"\n✅ Deleted {len(results['ids'])} "
+        f"web_developement chunks."
     )
 
 else:
 
     print(
-        "\n⚠️ No mathematics records found."
+        "\n⚠️ No web_developement records found."
     )
 
 
 # =================================================
-# Verify
+# Verify Deletion
 # =================================================
 
 remaining = collection.get(
     where={
-        "subject": "mathematics"
+        "course": "web_developement"
     },
     include=[
         "metadatas"
@@ -80,5 +89,23 @@ remaining = collection.get(
 )
 
 print(
-    f"Remaining mathematics chunks: {len(remaining['ids'])}"
+    f"Remaining web_developement chunks: "
+    f"{len(remaining['ids'])}"
+)
+
+
+# =================================================
+# Finished
+# =================================================
+
+print(
+    "\n==============================================="
+)
+
+print(
+    "✅ web_developement cleanup completed."
+)
+
+print(
+    "==============================================="
 )

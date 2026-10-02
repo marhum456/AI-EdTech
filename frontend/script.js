@@ -21,23 +21,33 @@ const courses = [
         description: "Learn Physics concepts and problem solving.",
         icon: "⚛️",
 
-        lessons: [
-            {
-                course: "motion",
-                lesson: "lesson_1",
-                name: "Lesson 1 - Motion",
-                pdf: `${API_BASE_URL}/uploads/physics/Physics-%20Motion.pdf`
-            },
+        courses: [
+
+
 
             {
                 course: "work",
-                lesson: "lesson_2",
-                name: "Lesson 2 - Work",
-                pdf: `${API_BASE_URL}/uploads/physics/Physics-%20Work.pdf`
+                name: "Work",
+                description: "Learn the fundamentals of work in physics.",
+
+                lessons: [
+
+                    {
+                        lesson: "lesson_1",
+                        name: "Lesson 1 - Work_Basics",
+                        pdf: `${API_BASE_URL}/uploads/physics/Physics-%20Work.pdf`
+                    }
+
+                ]
             }
+
         ]
     },
 
+
+    // =====================================================
+    // MATHEMATICS
+    // =====================================================
 
     {
         subject: "mathematics",
@@ -45,70 +55,99 @@ const courses = [
         description: "Learn mathematics concepts step by step.",
         icon: "📐",
 
-        lessons: [
+        courses: [
+
             {
-                course: "Sets",
-                lesson: "lesson_1",
-                name: "Lesson 1 - Sets",
-                pdf: "http://127.0.0.1:8000/uploads/Mathematics/Mathematics-%20Sets.pdf"
+                course: "sets",
+                name: "Sets",
+                description: "Learn the fundamentals of sets.",
+
+                lessons: [
+
+                    {
+                        lesson: "lesson_1",
+                        name: "Lesson 1 - Sets_Basics",
+                        pdf: `${API_BASE_URL}/uploads/Mathematics/Mathematics-%20Sets.pdf`
+                    }
+
+                ]
             },
 
             {
-                course: "Geometry",
-                lesson: "lesson_2",
-                name: "Lesson 2 - Geometry",
-                pdf: "http://127.0.0.1:8000/uploads/Mathematics/Mathematics-%20Geometry.pdf"
-            },
+                course: "geometry",
+                name: "Geometry",
+                description: "Learn geometry concepts.",
 
-            {
-                course: "algebra",
-                lesson: "lesson_3",
-                name: "Lesson 3 - Algebra",
-                pdf: "http://127.0.0.1:8000/uploads/Mathematics/Mathematics-%20Algebra.pdf"
+                lessons: [
+
+                    {
+                        lesson: "lesson_1",
+                        name: "Lesson 1 - Geometry_Basics",
+                        pdf: `${API_BASE_URL}/uploads/Mathematics/Mathematics-%20Geometry.pdf`
+                    }
+
+                ]
             }
+
         ]
     },
 
 
     // =====================================================
-    // WEB DEVELOPMENT
+    // COMPUTER SCIENCE
     // =====================================================
 
     {
-        subject: "web_developement",
-        name: "Web Development",
-        description: "Learn HTML, CSS and JavaScript.",
+        subject: "computer_science",
+        name: "Computer Science",
+        description: "Learn programming and modern computing concepts.",
         icon: "💻",
 
-        lessons: [
-            {
-                course: "html",
-                lesson: "lesson_1",
-                name: "Lesson 1 - HTML",
-                pdf: `${API_BASE_URL}/uploads/web_developement/HTML%20Fundamentals.pdf`
-            },
+        courses: [
+
+            // =================================================
+            // WEB DEVELOPMENT COURSE
+            // =================================================
 
             {
-                course: "css",
-                lesson: "lesson_2",
-                name: "Lesson 2 - CSS",
-                pdf: `${API_BASE_URL}/uploads/web_developement/CSS%20Fundamentals.pdf`
-            },
+                course: "web_development",
+                name: "Web Development",
+                description: "Learn HTML, CSS and JavaScript.",
 
-            {
-                course: "javascript",
-                lesson: "lesson_3",
-                name: "Lesson 3 - JavaScript",
-                pdf: `${API_BASE_URL}/uploads/web_developement/JavaScript%20Fundamentals.pdf`
+                lessons: [
+
+                    {
+                        lesson: "lesson_1",
+                        name: "Lesson 1 - HTML Fundamentals",
+                        pdf: `${API_BASE_URL}/uploads/computer_science/HTML%20Fundamentals.pdf`
+                    },
+
+                    {
+                        lesson: "lesson_2",
+                        name: "Lesson 2 - CSS Fundamentals",
+                        pdf: `${API_BASE_URL}/uploads/computer_science/CSS%20Fundamentals.pdf`
+                    },
+
+                    {
+                        lesson: "lesson_3",
+                        name: "Lesson 3 - JavaScript Fundamentals",
+                        pdf: `${API_BASE_URL}/uploads/computer_science/JavaScript%20Fundamentals.pdf`
+                    }
+
+                ]
             }
+
         ]
     }
+
 ];
+
 
 // =====================================================
 // CURRENT STATE
 // =====================================================
 
+let currentSubject = null;
 let currentCourse = null;
 let currentLesson = null;
 
@@ -118,30 +157,124 @@ let currentModel = null;
 
 
 // =====================================================
-// SCREEN MANAGEMENT
+// DOM ELEMENTS
 // =====================================================
 
-function hideAllScreens() {
+const subjectsSection =
+    document.getElementById("subjects-section");
 
-    document
-        .querySelectorAll(".screen")
-        .forEach(screen => {
-            screen.classList.add("hidden");
-        });
+const coursesSection =
+    document.getElementById("courses-section");
+
+const lessonsSection =
+    document.getElementById("lessons-section");
+
+const pdfSection =
+    document.getElementById("pdf-section");
+
+const quizSection =
+    document.getElementById("quiz-section");
+
+const resultSection =
+    document.getElementById("result-section");
+
+
+// =====================================================
+// HIDE ALL SECTIONS
+// =====================================================
+
+function hideAllSections() {
+
+    subjectsSection.classList.add("hidden");
+    coursesSection.classList.add("hidden");
+    lessonsSection.classList.add("hidden");
+    pdfSection.classList.add("hidden");
+    quizSection.classList.add("hidden");
+    resultSection.classList.add("hidden");
 }
 
 
 // =====================================================
-// SHOW COURSES
+// SHOW SUBJECTS
 // =====================================================
 
-function showCourses() {
+function showSubjects() {
 
-    hideAllScreens();
+    hideAllSections();
+
+    subjectsSection.classList.remove("hidden");
+
+    loadSubjects();
+}
+
+
+// =====================================================
+// LOAD SUBJECTS
+// =====================================================
+
+function loadSubjects() {
+
+    const container =
+        document.getElementById("subjects-container");
+
+    container.innerHTML = "";
+
+    courses.forEach((subject, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "course-card";
+
+        card.innerHTML = `
+
+            <div class="course-icon">
+                ${subject.icon}
+            </div>
+
+            <h2>
+                ${subject.name}
+            </h2>
+
+            <p>
+                ${subject.description}
+            </p>
+
+            <button
+                class="primary-button"
+                onclick="openSubject(${index})">
+
+                Open Subject
+
+            </button>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+// =====================================================
+// OPEN SUBJECT
+// =====================================================
+
+function openSubject(index) {
+
+    currentSubject = courses[index];
+
+    console.log("================================");
+    console.log("Opening Subject");
+    console.log("Subject:", currentSubject.subject);
+    console.log("================================");
+
+    hideAllSections();
+
+    coursesSection.classList.remove("hidden");
 
     document
-        .getElementById("courses-screen")
-        .classList.remove("hidden");
+        .getElementById("selected-subject-name")
+        .textContent =
+            currentSubject.name;
 
     loadCourses();
 }
@@ -158,36 +291,36 @@ function loadCourses() {
 
     container.innerHTML = "";
 
-    courses.forEach((course, index) => {
+    currentSubject.courses.forEach(
+        (course, index) => {
 
-        const card =
-            document.createElement("div");
+            const card =
+                document.createElement("div");
 
-        card.className = "course-card";
+            card.className = "course-card";
 
-        card.innerHTML = `
-            <div class="course-icon">
-                ${course.icon}
-            </div>
+            card.innerHTML = `
 
-            <h2>
-                ${course.name}
-            </h2>
+                <h2>
+                    ${course.name}
+                </h2>
 
-            <p>
-                ${course.description}
-            </p>
+                <p>
+                    ${course.description}
+                </p>
 
-            <button
-                class="primary-btn"
-                onclick="openCourse(${index})"
-            >
-                Open Course
-            </button>
-        `;
+                <button
+                    class="primary-button"
+                    onclick="openCourse(${index})">
 
-        container.appendChild(card);
-    });
+                    Open Course
+
+                </button>
+            `;
+
+            container.appendChild(card);
+        }
+    );
 }
 
 
@@ -197,18 +330,21 @@ function loadCourses() {
 
 function openCourse(index) {
 
-    currentCourse = courses[index];
+    currentCourse =
+        currentSubject.courses[index];
 
-    console.log("Current course:", currentCourse);
+    console.log("================================");
+    console.log("Opening Course");
+    console.log("Subject:", currentSubject.subject);
+    console.log("Course:", currentCourse.course);
+    console.log("================================");
 
-    hideAllScreens();
+    hideAllSections();
+
+    lessonsSection.classList.remove("hidden");
 
     document
-        .getElementById("lessons-screen")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("lessons-title")
+        .getElementById("selected-course-name")
         .textContent =
             currentCourse.name;
 
@@ -236,19 +372,19 @@ function loadLessons() {
             card.className = "lesson-card";
 
             card.innerHTML = `
+
                 <h3>
                     ${lesson.name}
                 </h3>
 
-                <p>
-                    ${currentCourse.name}
-                </p>
+
 
                 <button
-                    class="primary-btn"
-                    onclick="openLesson(${index})"
-                >
+                    class="primary-button"
+                    onclick="openLesson(${index})">
+
                     Open Lesson
+
                 </button>
             `;
 
@@ -268,21 +404,19 @@ function openLesson(index) {
         currentCourse.lessons[index];
 
     console.log("================================");
-    console.log("Opening lesson");
-    console.log("Subject:", currentCourse.subject);
-    console.log("Course:", currentLesson.course);
+    console.log("Opening Lesson");
+    console.log("Subject:", currentSubject.subject);
+    console.log("Course:", currentCourse.course);
     console.log("Lesson:", currentLesson.lesson);
     console.log("PDF:", currentLesson.pdf);
     console.log("================================");
 
-    hideAllScreens();
+    hideAllSections();
+
+    pdfSection.classList.remove("hidden");
 
     document
-        .getElementById("pdf-screen")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("pdf-title")
+        .getElementById("selected-lesson-name")
         .textContent =
             currentLesson.name;
 
@@ -290,64 +424,130 @@ function openLesson(index) {
         .getElementById("pdf-viewer")
         .src =
             currentLesson.pdf;
+
+    // Reset checkbox
+    const checkbox =
+        document.getElementById(
+            "read-pdf-checkbox"
+        );
+
+    checkbox.checked = false;
+
+    // Disable quiz button
+    document
+        .getElementById("generate-quiz-button")
+        .disabled = true;
+
+    document
+        .getElementById("quiz-status")
+        .textContent = "";
 }
+
+
+// =====================================================
+// PDF READ CHECKBOX
+// =====================================================
+
+document
+    .getElementById("read-pdf-checkbox")
+    .addEventListener(
+        "change",
+        function () {
+
+            const quizButton =
+                document.getElementById(
+                    "generate-quiz-button"
+                );
+
+            quizButton.disabled =
+                !this.checked;
+        }
+    );
+
+
+// =====================================================
+// GENERATE QUIZ BUTTON
+// =====================================================
+
+document
+    .getElementById("generate-quiz-button")
+    .addEventListener(
+        "click",
+        startQuiz
+    );
+
+
+// =====================================================
+// BACK TO SUBJECTS
+// =====================================================
+
+document
+    .getElementById("back-to-subjects")
+    .addEventListener(
+        "click",
+        showSubjects
+    );
+
+
+// =====================================================
+// BACK TO COURSES
+// =====================================================
+
+document
+    .getElementById("back-to-courses")
+    .addEventListener(
+        "click",
+        function () {
+
+            hideAllSections();
+
+            coursesSection.classList.remove(
+                "hidden"
+            );
+
+            loadCourses();
+        }
+    );
 
 
 // =====================================================
 // BACK TO LESSONS
 // =====================================================
 
-function showLessons() {
+document
+    .getElementById("back-to-lessons")
+    .addEventListener(
+        "click",
+        function () {
 
-    hideAllScreens();
+            hideAllSections();
 
-    document
-        .getElementById("lessons-screen")
-        .classList.remove("hidden");
-}
+            lessonsSection.classList.remove(
+                "hidden"
+            );
 
-
-// =====================================================
-// COMPLETED READING
-// =====================================================
-
-function completeReading() {
-
-    hideAllScreens();
-
-    document
-        .getElementById("quiz-info-screen")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("info-subject")
-        .textContent =
-            currentCourse.name;
-
-    document
-        .getElementById("info-course")
-        .textContent =
-            currentLesson.course;
-
-    document
-        .getElementById("info-lesson")
-        .textContent =
-            currentLesson.name;
-}
+            loadLessons();
+        }
+    );
 
 
 // =====================================================
-// SHOW QUIZ INFORMATION
+// BACK TO PDF
 // =====================================================
 
-function showQuizInfo() {
+document
+    .getElementById("back-to-pdf")
+    .addEventListener(
+        "click",
+        function () {
 
-    hideAllScreens();
+            hideAllSections();
 
-    document
-        .getElementById("quiz-info-screen")
-        .classList.remove("hidden");
-}
+            pdfSection.classList.remove(
+                "hidden"
+            );
+        }
+    );
 
 
 // =====================================================
@@ -356,23 +556,33 @@ function showQuizInfo() {
 
 async function startQuiz() {
 
-    const infoButton =
-        document.querySelector(
-            "#quiz-info-screen .primary-btn"
+    const quizButton =
+        document.getElementById(
+            "generate-quiz-button"
         );
 
-    infoButton.disabled = true;
-    infoButton.textContent = "Generating Quiz...";
+    const status =
+        document.getElementById(
+            "quiz-status"
+        );
+
+    quizButton.disabled = true;
+
+    quizButton.textContent =
+        "Generating Quiz...";
+
+    status.textContent =
+        "Please wait while the AI generates your quiz.";
 
     try {
 
         const requestData = {
 
             subject:
-                currentCourse.subject,
+                currentSubject.subject,
 
             course:
-                currentLesson.course,
+                currentCourse.course,
 
             lesson:
                 currentLesson.lesson,
@@ -380,8 +590,10 @@ async function startQuiz() {
             number_of_questions: 5
         };
 
-        console.log("Generating quiz:");
+        console.log("================================");
+        console.log("Generating Quiz");
         console.log(requestData);
+        console.log("================================");
 
         const response =
             await fetch(
@@ -395,7 +607,9 @@ async function startQuiz() {
                     },
 
                     body:
-                        JSON.stringify(requestData)
+                        JSON.stringify(
+                            requestData
+                        )
                 }
             );
 
@@ -410,7 +624,10 @@ async function startQuiz() {
         const data =
             await response.json();
 
-        console.log("Quiz generated:", data);
+        console.log(
+            "Quiz generated:",
+            data
+        );
 
         currentQuiz =
             data.quiz;
@@ -421,27 +638,31 @@ async function startQuiz() {
         currentModel =
             data.route;
 
-        console.log("Quiz ID:", currentQuizId);
-        console.log("Model:", currentModel);
-
         displayQuiz();
 
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "Quiz generation error:",
             error
         );
 
+        status.textContent =
+            "Failed to generate quiz.";
+
         alert(
             "Failed to generate quiz.\n\n" +
             error.message
         );
 
-    } finally {
+    }
+    finally {
 
-        infoButton.disabled = false;
-        infoButton.textContent = "Start Quiz";
+        quizButton.disabled = false;
+
+        quizButton.textContent =
+            "Generate Quiz";
     }
 }
 
@@ -452,16 +673,9 @@ async function startQuiz() {
 
 function displayQuiz() {
 
-    hideAllScreens();
+    hideAllSections();
 
-    document
-        .getElementById("quiz-screen")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("quiz-title")
-        .textContent =
-            `${currentCourse.name} Quiz`;
+    quizSection.classList.remove("hidden");
 
     const container =
         document.getElementById(
@@ -469,6 +683,11 @@ function displayQuiz() {
         );
 
     container.innerHTML = "";
+
+    document
+        .getElementById("quiz-description")
+        .textContent =
+            `${currentCourse.name} - ${currentLesson.name}`;
 
     currentQuiz.forEach(
         (question, index) => {
@@ -482,16 +701,16 @@ function displayQuiz() {
             let optionsHTML = "";
 
             question.options.forEach(
-                (option) => {
+                option => {
 
                     optionsHTML += `
+
                         <label class="option">
 
                             <input
                                 type="radio"
                                 name="question-${index}"
-                                value="${escapeHTML(option)}"
-                            >
+                                value="${escapeHTML(option)}">
 
                             ${escapeHTML(option)}
 
@@ -507,7 +726,9 @@ function displayQuiz() {
                 </div>
 
                 <div class="question-text">
-                    ${escapeHTML(question.question)}
+                    ${escapeHTML(
+                        question.question
+                    )}
                 </div>
 
                 ${optionsHTML}
@@ -522,6 +743,14 @@ function displayQuiz() {
 // =====================================================
 // SUBMIT QUIZ
 // =====================================================
+
+document
+    .getElementById("submit-quiz-button")
+    .addEventListener(
+        "click",
+        submitQuiz
+    );
+
 
 async function submitQuiz() {
 
@@ -540,6 +769,7 @@ async function submitQuiz() {
             if (!selected) {
 
                 unanswered = true;
+
                 return;
             }
 
@@ -558,7 +788,7 @@ async function submitQuiz() {
     if (unanswered) {
 
         document
-            .getElementById("quiz-error")
+            .getElementById("submit-status")
             .textContent =
                 "Please answer all questions before submitting.";
 
@@ -567,8 +797,9 @@ async function submitQuiz() {
 
 
     document
-        .getElementById("quiz-error")
-        .textContent = "";
+        .getElementById("submit-status")
+        .textContent =
+            "Submitting quiz...";
 
 
     try {
@@ -609,17 +840,24 @@ async function submitQuiz() {
         const result =
             await response.json();
 
+
         console.log(
             "Quiz submission:",
             result
         );
 
+
         showResult(result);
 
-
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(error);
+
+        document
+            .getElementById("submit-status")
+            .textContent =
+                "Failed to submit quiz.";
 
         alert(
             "Failed to submit quiz.\n\n" +
@@ -635,42 +873,60 @@ async function submitQuiz() {
 
 function showResult(result) {
 
-    hideAllScreens();
+    hideAllSections();
 
-    document
-        .getElementById("result-screen")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("result-score")
-        .textContent =
-            `${result.score} / ${result.total_questions}`;
-
-
-    document
-        .getElementById("result-percentage")
-        .textContent =
-            `${result.percentage}%`;
-
-
-    document
-        .getElementById("result-model")
-        .textContent =
-            currentModel;
+    resultSection.classList.remove(
+        "hidden"
+    );
 
 
     document
         .getElementById("result-quiz-id")
         .textContent =
+            result.quiz_id ||
             currentQuizId;
 
 
     document
         .getElementById("result-progress-id")
         .textContent =
-            result.progress_id;
+            result.progress_id ||
+            "-";
+
+
+    document
+        .getElementById("result-ai-model")
+        .textContent =
+            currentModel ||
+            "-";
+
+
+    document
+        .getElementById("result-score")
+        .textContent =
+            `${result.score} / ${result.total_questions}`;
 }
+
+
+// =====================================================
+// RETURN TO LESSONS
+// =====================================================
+
+document
+    .getElementById("return-to-lessons")
+    .addEventListener(
+        "click",
+        function () {
+
+            hideAllSections();
+
+            lessonsSection.classList.remove(
+                "hidden"
+            );
+
+            loadLessons();
+        }
+    );
 
 
 // =====================================================
@@ -682,7 +938,8 @@ function escapeHTML(value) {
     const div =
         document.createElement("div");
 
-    div.textContent = value;
+    div.textContent =
+        value;
 
     return div.innerHTML;
 }
@@ -692,4 +949,4 @@ function escapeHTML(value) {
 // INITIAL PAGE
 // =====================================================
 
-showCourses();
+showSubjects();

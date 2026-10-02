@@ -3,11 +3,12 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+
 from app.api.quiz import router as quiz_router
+from app.api.lesson_upload import router as lesson_upload_router
 
 from app.database.mongodb import (
     connect_to_mongodb,
@@ -25,15 +26,33 @@ UPLOADS_DIR = BASE_DIR / "uploads"
 
 
 # =================================================
+# Create Upload Directory if It Does Not Exist
+# =================================================
+
+UPLOADS_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# =================================================
 # Lifespan
 # =================================================
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
+    # ---------------------------------------------
+    # Connect MongoDB
+    # ---------------------------------------------
+
     connect_to_mongodb()
 
     yield
+
+    # ---------------------------------------------
+    # Close MongoDB
+    # ---------------------------------------------
 
     close_mongodb_connection()
 
@@ -55,16 +74,18 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
+
     allow_origins=[
         "http://127.0.0.1:5500",
         "http://localhost:5500",
     ],
+
     allow_credentials=True,
+
     allow_methods=["*"],
+
     allow_headers=["*"],
 )
-
-
 
 
 # =================================================
@@ -73,7 +94,9 @@ app.add_middleware(
 
 app.mount(
     "/uploads",
-    StaticFiles(directory=str(UPLOADS_DIR)),
+    StaticFiles(
+        directory=str(UPLOADS_DIR)
+    ),
     name="uploads"
 )
 
@@ -82,7 +105,16 @@ app.mount(
 # API Routers
 # =================================================
 
-app.include_router(quiz_router)
+# Existing Quiz API
+app.include_router(
+    quiz_router
+)
+
+
+# New Phase 15 Lesson Upload API
+app.include_router(
+    lesson_upload_router
+)
 
 
 # =================================================
@@ -97,17 +129,6 @@ def root():
     }
 
 
-@app.get("/uploads/mathematics/Geometry.pdf")
-def mathematics_geometry():
-
-    from fastapi.responses import FileResponse
-
-    pdf_path = MATH_DIR / "Mathematics- Geometry.pdf"
-
-    return FileResponse(
-        pdf_path,
-        media_type="application/pdf"
-    )
 # =================================================
 # Health
 # =================================================
@@ -127,11 +148,28 @@ def health_check():
 
 print("\n===== Project Configuration =====")
 
-print(f"MongoDB URI    : {settings.MONGODB_URI}")
-print(f"Database Name  : {settings.DATABASE_NAME}")
-print(f"Upload Folder  : {settings.UPLOAD_FOLDER}")
-print(f"ChromaDB Path  : {settings.CHROMA_DB_PATH}")
-print(f"Project Root   : {BASE_DIR}")
-print(f"Uploads Path   : {UPLOADS_DIR}")
+print(
+    f"MongoDB URI    : {settings.MONGODB_URI}"
+)
+
+print(
+    f"Database Name  : {settings.DATABASE_NAME}"
+)
+
+print(
+    f"Upload Folder  : {settings.UPLOAD_FOLDER}"
+)
+
+print(
+    f"ChromaDB Path  : {settings.CHROMA_DB_PATH}"
+)
+
+print(
+    f"Project Root   : {BASE_DIR}"
+)
+
+print(
+    f"Uploads Path   : {UPLOADS_DIR}"
+)
 
 print("=================================\n")

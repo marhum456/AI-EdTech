@@ -18,9 +18,10 @@ class SubjectModelService:
         # -------------------------------------------------
 
         self.models = {
-            "web_developement": "openai/gpt-oss-20b",
+            "computer_science": "openai/gpt-oss-20b",
             "mathematics": "openai/gpt-oss-120b",
             "physics": "openai/gpt-oss-120b",
+            "chemistry": "openai/gpt-oss-120b",
         }
 
     # -------------------------------------------------

@@ -1,131 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AI EdTech</title>
+    <title>AI-EdTech | Learning Platform</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ========================================= -->
-    <!-- HEADER -->
-    <!-- ========================================= -->
+    <!-- =================================================
+         HEADER
+    ================================================== -->
 
-    <header class="header">
-        <div class="logo">AI Learning Platform</div>
+    <header class="top-header">
 
-        <button class="home-btn" onclick="showCourses()">
-            Home
-        </button>
+        <div class="header-inner">
+
+            <div class="brand">
+                <div class="brand-icon">AI</div>
+
+                <div>
+                    <h1>AI-EdTech</h1>
+                    <span>Intelligent Learning Platform</span>
+                </div>
+            </div>
+
+            <div class="header-status">
+                <span class="status-dot"></span>
+                AI Learning
+            </div>
+
+        </div>
+
     </header>
 
 
-    <!-- ========================================= -->
-    <!-- MAIN APPLICATION -->
-    <!-- ========================================= -->
+    <!-- =================================================
+         MAIN
+    ================================================== -->
 
-    <main id="app">
-
-        <!-- Courses are loaded here -->
-        <section id="courses-screen" class="screen">
-            <h1>Explore Courses</h1>
-
-            <p class="subtitle">
-                Choose a course to start learning.
-            </p>
-
-            <div id="courses-container" class="cards-container"></div>
-        </section>
+    <main class="main-container">
 
 
-        <!-- ===================================== -->
-        <!-- LESSONS SCREEN -->
-        <!-- ===================================== -->
+        <!-- =================================================
+             SUBJECTS
+        ================================================== -->
 
-        <section id="lessons-screen" class="screen hidden">
+        <section id="subjects-section">
 
-            <button class="back-btn" onclick="showCourses()">
-                ← Back to Courses
-            </button>
+            <div class="hero-section">
 
-            <h1 id="lessons-title"></h1>
+                <div class="hero-content">
 
-            <div id="lessons-container" class="lessons-container"></div>
+                    <span class="eyebrow">
+                        PERSONALIZED LEARNING
+                    </span>
 
-        </section>
+                    <h2>
+                        Learn smarter.
+                        <br>
+                        <span>Learn with AI.</span>
+                    </h2>
 
+                    <p>
+                        Explore your subjects, study structured lessons,
+                        and test your knowledge with AI-generated quizzes.
+                    </p>
 
-        <!-- ===================================== -->
-        <!-- PDF SCREEN -->
-        <!-- ===================================== -->
+                </div>
 
-        <section id="pdf-screen" class="screen hidden">
-
-            <button class="back-btn" onclick="showLessons()">
-                ← Back to Lessons
-            </button>
-
-            <h1 id="pdf-title"></h1>
-
-            <div class="pdf-container">
-                <iframe id="pdf-viewer"></iframe>
             </div>
 
-            <button
-                id="completed-btn"
-                class="primary-btn"
-                onclick="completeReading()"
-            >
-                ✓ I completed reading the PDF
-            </button>
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">
+                        LEARNING AREAS
+                    </span>
+
+                    <h2>Subjects</h2>
+
+                    <p>
+                        Choose a subject to explore its courses.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="subjects-container"
+                class="card-grid">
+            </div>
 
         </section>
 
 
-        <!-- ===================================== -->
-        <!-- QUIZ INFORMATION SCREEN -->
-        <!-- ===================================== -->
+        <!-- =================================================
+             COURSES
+        ================================================== -->
 
-        <section id="quiz-info-screen" class="screen hidden">
+        <section
+            id="courses-section"
+            class="hidden">
 
-            <div class="quiz-info-card">
+            <button
+                id="back-to-subjects"
+                class="back-button">
 
-                <h1>Quiz Information</h1>
+                <span>←</span>
+                Back to Subjects
 
-                <div class="info-row">
-                    <strong>Subject:</strong>
-                    <span id="info-subject"></span>
+            </button>
+
+
+            <div class="page-heading">
+
+                <span class="section-label">
+                    SUBJECT
+                </span>
+
+                <h2 id="selected-subject-name"></h2>
+
+                <p>
+                    Select a course to continue learning.
+                </p>
+
+            </div>
+
+
+            <div
+                id="courses-container"
+                class="card-grid">
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LESSONS
+        ================================================== -->
+
+        <section
+            id="lessons-section"
+            class="hidden">
+
+            <button
+                id="back-to-courses"
+                class="back-button">
+
+                <span>←</span>
+                Back to Courses
+
+            </button>
+
+
+            <div class="page-heading">
+
+                <span class="section-label">
+                    COURSE
+                </span>
+
+                <h2 id="selected-course-name"></h2>
+
+                <p>
+                    Select a lesson to begin studying.
+                </p>
+
+            </div>
+
+
+            <div
+                id="lessons-container"
+                class="lesson-list">
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PDF LESSON
+        ================================================== -->
+
+        <section
+            id="pdf-section"
+            class="hidden">
+
+            <button
+                id="back-to-lessons"
+                class="back-button">
+
+                <span>←</span>
+                Back to Lessons
+
+            </button>
+
+
+            <div class="page-heading">
+
+                <span class="section-label">
+                    LESSON
+                </span>
+
+                <h2 id="selected-lesson-name"></h2>
+
+                <p>
+                    Read the lesson carefully before starting the quiz.
+                </p>
+
+            </div>
+
+
+            <div class="learning-layout">
+
+
+                <!-- PDF -->
+
+                <div class="pdf-card">
+
+                    <div class="pdf-header">
+
+                        <div class="pdf-icon">
+                            PDF
+                        </div>
+
+                        <div>
+
+                            <h3>Lesson Material</h3>
+
+                            <span>
+                                Study the complete lesson
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pdf-container">
+
+                        <iframe
+                            id="pdf-viewer"
+                            title="Lesson PDF">
+                        </iframe>
+
+                    </div>
+
                 </div>
 
-                <div class="info-row">
-                    <strong>Course:</strong>
-                    <span id="info-course"></span>
+
+                <!-- QUIZ READY -->
+
+                <aside class="quiz-ready-box">
+
+                    <div class="quiz-icon">
+                        ✦
+                    </div>
+
+                    <span class="section-label">
+                        KNOWLEDGE CHECK
+                    </span>
+
+                    <h3>
+                        Ready to test yourself?
+                    </h3>
+
+                    <p>
+                        Complete the lesson first. Once you're ready,
+                        generate an AI-powered quiz based on this lesson.
+                    </p>
+
+
+                    <label class="read-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="read-pdf-checkbox">
+
+                        <span>
+                            I have read this lesson
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        id="generate-quiz-button"
+                        class="primary-button"
+                        disabled>
+
+                        <span>✦</span>
+                        Generate Quiz
+
+                    </button>
+
+
+                    <p
+                        id="quiz-status"
+                        class="status-text">
+                    </p>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUIZ
+        ================================================== -->
+
+        <section
+            id="quiz-section"
+            class="hidden">
+
+            <button
+                id="back-to-pdf"
+                class="back-button">
+
+                <span>←</span>
+                Back to Lesson
+
+            </button>
+
+
+            <div class="quiz-header">
+
+                <div>
+
+                    <span class="section-label">
+                        AI ASSESSMENT
+                    </span>
+
+                    <h2>Knowledge Check</h2>
+
+                    <p id="quiz-description">
+                        Answer all questions and submit the quiz.
+                    </p>
+
                 </div>
 
-                <div class="info-row">
-                    <strong>Lesson:</strong>
-                    <span id="info-lesson"></span>
+                <div class="ai-badge">
+                    <span>✦</span>
+                    AI Generated
                 </div>
 
-                <div class="info-row">
-                    <strong>Questions:</strong>
-                    <span id="info-questions">5</span>
-                </div>
+            </div>
 
-                <p class="quiz-description">
-                    This quiz will be generated using the
-                    subject-specific AI model.
+
+            <div
+                id="quiz-container"
+                class="quiz-container">
+            </div>
+
+
+            <div class="quiz-submit-area">
+
+                <p
+                    id="submit-status"
+                    class="status-text">
                 </p>
 
                 <button
-                    class="primary-btn"
-                    onclick="startQuiz()"
-                >
-                    Start Quiz
+                    id="submit-quiz-button"
+                    class="primary-button">
+
+                    Submit Quiz
+                    <span>→</span>
+
                 </button>
 
             </div>
@@ -133,82 +381,95 @@
         </section>
 
 
-        <!-- ===================================== -->
-        <!-- QUIZ SCREEN -->
-        <!-- ===================================== -->
+        <!-- =================================================
+             RESULT
+        ================================================== -->
 
-        <section id="quiz-screen" class="screen hidden">
+        <section
+            id="result-section"
+            class="hidden">
 
-            <button class="back-btn" onclick="showQuizInfo()">
-                ← Back
-            </button>
+            <div class="result-wrapper">
 
-            <h1 id="quiz-title">Quiz</h1>
+                <div class="result-success-icon">
+                    ✓
+                </div>
 
-            <div id="quiz-container"></div>
+                <span class="section-label">
+                    ASSESSMENT COMPLETE
+                </span>
 
-            <button
-                class="submit-btn"
-                onclick="submitQuiz()"
-            >
-                Submit Quiz
-            </button>
+                <h2>Quiz Submitted</h2>
 
-            <p id="quiz-error" class="error"></p>
-
-        </section>
+                <p>
+                    Your quiz has been successfully evaluated.
+                </p>
 
 
-        <!-- ===================================== -->
-        <!-- RESULT SCREEN -->
-        <!-- ===================================== -->
+                <div class="result-grid">
 
-        <section id="result-screen" class="screen hidden">
 
-            <div class="result-card">
+                    <div class="result-item">
 
-                <h1>🎉 Quiz Completed</h1>
+                        <span>
+                            Quiz ID
+                        </span>
 
-                <div class="score">
+                        <strong id="result-quiz-id">
+                            -
+                        </strong>
 
-                    <span id="result-score"></span>
+                    </div>
+
+
+                    <div class="result-item">
+
+                        <span>
+                            Progress ID
+                        </span>
+
+                        <strong id="result-progress-id">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-item">
+
+                        <span>
+                            AI Model
+                        </span>
+
+                        <strong id="result-ai-model">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-item result-score">
+
+                        <span>
+                            Score
+                        </span>
+
+                        <strong id="result-score">
+                            -
+                        </strong>
+
+                    </div>
 
                 </div>
 
-                <div class="percentage">
-                    <span id="result-percentage"></span>%
-                </div>
-
-                <div class="result-info">
-
-                    <div>
-                        <strong>AI Model</strong>
-                        <span id="result-model"></span>
-                    </div>
-
-                    <div>
-                        <strong>Quiz ID</strong>
-                        <span
-                            id="result-quiz-id"
-                            class="quiz-id"
-                        ></span>
-                    </div>
-
-                    <div>
-                        <strong>Progress ID</strong>
-                        <span
-                            id="result-progress-id"
-                            class="quiz-id"
-                        ></span>
-                    </div>
-
-                </div>
 
                 <button
-                    class="primary-btn"
-                    onclick="showCourses()"
-                >
-                    Back to Courses
+                    id="return-to-lessons"
+                    class="primary-button">
+
+                    Back to Lessons
+                    <span>→</span>
+
                 </button>
 
             </div>
@@ -218,7 +479,23 @@
     </main>
 
 
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <p>
+            AI-EdTech
+            <span>•</span>
+            Intelligent Learning Platform
+        </p>
+
+    </footer>
+
+
     <script src="script.js"></script>
 
 </body>
+
 </html>
